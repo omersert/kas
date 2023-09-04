@@ -407,6 +407,7 @@ class Menuconfig():
         return items
 
     def show_menu(self, title, top_node):
+        import re
         selection = 0
 
         while True:
@@ -428,6 +429,8 @@ class Menuconfig():
             listbox = Listbox(height, scroll=scroll, returnExit=1)
             count = 0
             for string, _ in items:
+                if "Password" in string:
+                    string = re.sub("\(.*?\)","(******)",string)
                 listbox.append(string, count)
                 if (selection == count):
                     listbox.setCurrent(count)
